@@ -1,0 +1,11 @@
+<ion-view view-title="{{episodios[0].Serie}} - {{episodios[0].Temporada}}">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-icon-right" ng-repeat="episodio in episodios" type="item-text-wrap" href="#/tab/series-episodio/{{serie.ID}}">
+        <h2>{{episodio.Nombre}}</h2>
+        <p>Capitulo {{episodio.Numero}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,12 @@
+<ion-view view-title="TV Series">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-avatar item-icon-right" ng-repeat="serie in series" type="item-text-wrap" href="#/tab/series-detail/{{serie.Nombre}}">
+        <img ng-src="{{serie.Foto}}">
+        <h2>{{serie.Nombre}}</h2>
+        <p>{{serie.Year}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

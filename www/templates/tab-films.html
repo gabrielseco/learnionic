@@ -1,0 +1,12 @@
+<ion-view view-title="Films">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-avatar item-icon-right" ng-repeat="film in films" type="item-text-wrap" href="#/tab/films-diccionario/{{film.ID}}">
+        <img ng-src="{{film.Foto}}">
+        <h2>{{film.Nombre}}</h2>
+        <p>{{film.Year}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
