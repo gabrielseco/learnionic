@@ -7,7 +7,9 @@ angular.module('starter.services',[])
 
   return {
             all: function() {
-              return $http.get(api+"peliculas");
+
+              //return $http.get(api+"peliculas");
+
             },
 
             get: function(filmId) {
