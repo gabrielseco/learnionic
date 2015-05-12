@@ -5,7 +5,6 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var db = null;
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
@@ -19,22 +18,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
-    db = window.sqlitePlugin.openDatabase({name: "learnseries.db", location: 1});
+    /*db = window.sqlitePlugin.openDatabase({name: "learnseries.db", location: 1});
     db.transaction(function(tx) {
       tx.executeSql('DROP TABLE IF EXISTS test_table');
       tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
     });
-    console.log('init');
-    db.transaction(function(tx) {
+    console.log('init');*/
 
-      tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
-        console.log("insertId: " + res.insertId + " -- probably 1");
-        console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
-
-      });
-
-
-    });
 
   });
 })

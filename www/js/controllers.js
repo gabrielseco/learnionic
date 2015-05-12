@@ -1,39 +1,33 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller('FilmsCtrl', function($scope,$ionicLoading,Films,$ionicPlatform) {
-  /*$scope.loadingIndicator = $ionicLoading.show({
+.controller('FilmsCtrl', function($scope,$ionicLoading,Films) {
+  $scope.loadingIndicator = $ionicLoading.show({
 	    content: 'Loading Data',
 	    animation: 'fade-in',
 	    showBackdrop: true,
 	    maxWidth: 200,
 	    showDelay: 500
 	});
-  Films.all().then(function(films){
-    var films = films.data;
-    $scope.films = films;
-    $scope.loadingIndicator.hide()
-  })*/
-  $ionicPlatform.ready(function() {
-      alert('controller films')
-      var db = window.sqlitePlugin.openDatabase({name: "learnseries.db"});
 
-    db.transaction(function(tx) {
-      tx.executeSql('DROP TABLE IF EXISTS test_table');
-      tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
-    });
 
-      db.transaction(function(tx) {
+  var films = new Array();
 
-        console.log('controller');
-        tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
-          console.log("insertId: " + res.insertId + " -- probably 1");
-          console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
+  console.log('make films function');
 
-        });
+  Films.makeFilms(function(res){
+    if(res === true){
+      console.log('get all the items and writed');
+      Films.all(function(result){
+        for(var i = 0;i<result.rows.length;i++){
+          films.push(result.rows.item(i));
+        }
+        console.log('passing the items to the scope');
+        $scope.films = films;
+        $scope.loadingIndicator.hide()
 
 
       });
-
+    }
   });
 
 
