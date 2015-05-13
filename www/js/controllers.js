@@ -1,38 +1,30 @@
 angular.module('starter.controllers', ['ionic'])
 
 .controller('FilmsCtrl', function($scope,$ionicLoading,Films) {
-  $scope.loadingIndicator = $ionicLoading.show({
-	    content: 'Loading Data',
-	    animation: 'fade-in',
-	    showBackdrop: true,
-	    maxWidth: 200,
-	    showDelay: 500
-	});
+  $scope.$on("$ionicView.afterEnter", function() {
+    $scope.loadingIndicator = $ionicLoading.show({
+  	    content: 'Loading Data',
+  	    animation: 'fade-in',
+  	    showBackdrop: true,
+  	    maxWidth: 200,
+  	    showDelay: 500
+  	});
 
 
-  var films = new Array();
+    var films = new Array();
 
-  console.log('make films function');
+    console.log('make films function');
 
-  Films.makeFilms(function(res){
-    if(res === true){
-      console.log('get all the items and writed');
-      Films.all(function(result){
-        for(var i = 0;i<result.rows.length;i++){
-          films.push(result.rows.item(i));
-        }
-        console.log('passing the items to the scope');
-        $scope.films = films;
-        $scope.loadingIndicator.hide()
+    Films.all(function(result){
+      for(var i = 0;i<result.rows.length;i++){
+        films.push(result.rows.item(i));
+      }
+      console.log('passing the items to the scope');
+      $scope.films = films;
+      $scope.loadingIndicator.hide()
 
-
-      });
-    }
-  });
-
-
-
-
+    });
+});
 
 
 })
@@ -46,8 +38,13 @@ angular.module('starter.controllers', ['ionic'])
   	    maxWidth: 200,
   	    showDelay: 500
   	});
-    Films.getDiccionarios($stateParams.id).then(function(films){
-      var films = films.data;
+
+    var films = new Array();
+
+    Films.getDiccionarios($stateParams.id,function(result){
+      for(var i = 0;i<result.rows.length;i++){
+        films.push(result.rows.item(i));
+      }
       $scope.films = films;
       $scope.loadingIndicator.hide()
     })
@@ -101,6 +98,32 @@ angular.module('starter.controllers', ['ionic'])
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
+})
+
+.controller('ReloadCtrl', function($scope,$ionicLoading,Reload) {
+  $scope.loadingIndicator = $ionicLoading.show({
+	    content: 'Loading Data',
+	    animation: 'fade-in',
+	    showBackdrop: true,
+	    maxWidth: 200,
+	    showDelay: 500
+	});
+
+  Reload.createTables(function(result){
+    if(result){
+      console.log('created tables succesfully');
+
+      Reload.loadData(function(res){
+        if(res){
+          console.log('loaded all data');
+          $scope.loadingIndicator.hide();
+          location.href="#films";
+
+        }
+      });
+
+    }
+  });
 })
 
 .controller('AccountCtrl', function($scope) {

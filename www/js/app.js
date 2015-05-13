@@ -18,18 +18,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
-    /*db = window.sqlitePlugin.openDatabase({name: "learnseries.db", location: 1});
-    db.transaction(function(tx) {
-      tx.executeSql('DROP TABLE IF EXISTS test_table');
-      tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
-    });
-    console.log('init');*/
+
 
 
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
+
+  $ionicConfigProvider.backButton.previousTitleText(false);
+
+  $ionicConfigProvider.backButton.text('Atrás').icon('ion-ios-arrow-left');
+
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -93,6 +93,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         'tab-series': {
           templateUrl: 'templates/series-episodio.html',
           controller: 'SeriesEpisodioCtrl'
+        }
+      }
+    })
+
+    .state('tab.reload', {
+      url: '/reload',
+      views: {
+        'tab-reload': {
+          templateUrl: 'templates/tab-reload.html',
+          controller: 'ReloadCtrl'
         }
       }
     })
